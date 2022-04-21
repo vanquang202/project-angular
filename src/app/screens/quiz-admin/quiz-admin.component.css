@@ -1,0 +1,31 @@
+.modal-custom {
+  transition:  all 0.5s;
+  position: fixed;
+  box-shadow: 2px 2px 10px black;
+  background: #fff;
+  z-index: 10;
+  top: 50px;
+  left: 50px;
+  right: 50px;
+  bottom: 50px;
+  padding: 20px;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  -webkit-transition:  all 0.5s;
+  -moz-transition:  all 0.5s;
+  -ms-transition:  all 0.5s;
+  -o-transition:  all 0.5s;
+}
+.button-c{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+.button-s{
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}

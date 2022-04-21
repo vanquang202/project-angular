@@ -1,0 +1,189 @@
+<div>
+  <button [routerLink]="['/admin/mon-hoc']" class="btn btn-primary"><i class="fa fa-chevron-circle-left"
+      aria-hidden="true"></i></button>
+  <ng-container *ngIf="flag_form">
+    <div class="my-1">
+      <form [formGroup]="form_quiz" class="form-horizo">
+        <div class="form-group">
+          <label for="">Tên quiz </label>
+          <input formControlName="name" type="text" class="form-control">
+          <ng-container *ngIf="form_quiz.controls['name'].errors &&
+                            (form_quiz.controls['name']).touched ||
+                            form_quiz.controls['name'].dirty">
+            <div>
+              <p class="text-danger" *ngIf="form_quiz.controls['name'].hasError('required')">Tên không để trống </p>
+              <p class="text-danger" *ngIf="form_quiz.controls['name'].hasError('minlength')">Tên kí tự lớn hơn 4 kí tự
+              </p>
+            </div>
+          </ng-container>
+        </div>
+        <div class="form-group">
+          <label for="">Thời gian làm quiz </label>
+          <input formControlName="duration_minutes" type="number" class="form-control">
+          <ng-container *ngIf="form_quiz.controls['duration_minutes'].errors &&
+                                      (form_quiz.controls['duration_minutes']).touched ||
+                                      form_quiz.controls['duration_minutes'].dirty">
+            <div>
+              <p class="text-danger" *ngIf="form_quiz.controls['duration_minutes'].hasError('required')">Thơi gian không
+                để trống </p>
+
+            </div>
+          </ng-container>
+        </div>
+        <div class="form-group">
+          <label for="">Thời gian mở quiz </label>
+          <input formControlName="start_time" type="datetime-local" class="form-control">
+          <ng-container *ngIf="form_quiz.controls['start_time'].errors &&
+                                                (form_quiz.controls['start_time']).touched ||
+                                                form_quiz.controls['start_time'].dirty">
+            <div>
+              <p class="text-danger" *ngIf="form_quiz.controls['start_time'].hasError('required')">Thơi gian mở quiz
+                không để
+                trống </p>
+
+            </div>
+          </ng-container>
+        </div>
+        <div class="form-group">
+          <label for="">Thời gian đóng quiz </label>
+          <input formControlName="end_time" type="datetime-local" class="form-control">
+          <ng-container *ngIf="form_quiz.controls['end_time'].errors &&
+                                                            (form_quiz.controls['end_time']).touched ||
+                                                            form_quiz.controls['end_time'].dirty">
+            <div>
+              <p class="text-danger" *ngIf="form_quiz.controls['end_time'].hasError('required')">Thơi gian mở quiz không
+                để
+                trống </p>
+
+            </div>
+          </ng-container>
+        </div>
+        <div class="form-group">
+          <label for="">Xáo trộn </label>
+          <select class="form-control" formControlName="is_shuffle">
+            <option [value]="0">Xáo trộn </option>
+            <option [value]="1">Không xáo trộn </option>
+          </select>
+        </div>
+        <div class="form-group mt-1">
+          <ng-container *ngIf="data_update; else elseTemplate">
+            <button (click)="updateQuiz()" [disabled]="!form_quiz.valid" class="btn btn-primary">Sửa
+              môn học </button>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <button (click)="storeQuiz()" [disabled]="!form_quiz.valid" class="btn btn-primary">Thêm
+              môn học </button>
+          </ng-template>
+
+
+          <button (click)="flag_form = false" class="mx-1 btn btn-outline-primary"> <i class="fa fa-chevron-circle-left"
+              aria-hidden="true"></i></button>
+        </div>
+      </form>
+    </div>
+  </ng-container>
+
+
+  <table class="table  table-hover table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Quiz </th>
+        <th scope="col">Môn học </th>
+        <th scope="col">Thời gian mở </th>
+        <th scope="col">Thời gian đóng </th>
+        <th scope="col">Thời gian làm bài </th>
+        <th scope="col">Tình trạng </th>
+        <th width="20" colspan="2" class="text-center"> <button (click)="flag_form = true" type="button"
+            class="btn btn-outline-primary"><i class="fa fa-plus-square" aria-hidden="true"></i> </button>
+        </th>
+        <th> Câu hỏi </th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="quizs.length == 0; else elseTemplate">
+
+        <tr>
+          <th scope="row"> No item <i class="fa fa-exclamation-circle" aria-hidden="true"></i></th>
+          <td> No item <i class="fa fa-exclamation-circle" aria-hidden="true"></i> </td>
+          <td> No item <i class="fa fa-exclamation-circle" aria-hidden="true"></i> </td>
+          <td> No item <i class="fa fa-exclamation-circle" aria-hidden="true"></i> </td>
+          <td> No item <i class="fa fa-exclamation-circle" aria-hidden="true"></i> </td>
+          <td> No item <i class="fa fa-exclamation-circle" aria-hidden="true"></i> </td>
+          <td> No item <i class="fa fa-exclamation-circle" aria-hidden="true"></i> </td>
+          <td class="text-center"><button type="button" class="btn btn-outline-danger ">
+              <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+            </button></td>
+          <td class="text-center"><button type="button" class="btn btn-outline-success">
+              <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+            </button></td>
+          <td> <a class="btn btn-outline-primary">No item <i class="fa fa-exclamation-circle"
+                aria-hidden="true"></i></a> </td>
+        </tr>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <tr *ngFor="let quiz of quizs , let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ quiz.name }}</td>
+          <td>{{ quiz.subject.name }}</td>
+          <td>{{ quiz.start_time }}</td>
+          <td>{{ quiz.end_time }}</td>
+          <td>{{ quiz.duration_minutes }}</td>
+          <td>
+            <div class="form-check form-switch">
+              <input class="form-check-input" (change)="changeStatusQuiz(quiz)" type="checkbox"
+                [checked]="quiz.status == 0" role="switch" id="flexSwitchCheckDefault">
+              <label *ngIf="quiz.status == 0" class="form-check-label" for="flexSwitchCheckDefault"> <i
+                  class="fa fa-unlock" aria-hidden="true"></i></label>
+              <label *ngIf="quiz.status == 1" class="form-check-label" for="flexSwitchCheckDefault"> <i
+                  class="fa fa-lock" aria-hidden="true"></i> </label>
+            </div>
+          </td>
+          <ng-container *ngIf="quiz.questions_count == 0; else elseTemplate">
+            <td class="text-center"><button (click)="deleteQuiz(quiz.id)" type="button"
+                class="btn btn-outline-danger "><i class="fa fa-trash" aria-hidden="true"></i>
+              </button></td>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <td class="text-center"><button type="button" class="btn btn-danger "><i class="fa fa-exclamation-circle"
+                  aria-hidden="true"></i>
+              </button></td>
+          </ng-template>
+
+
+          <td class="text-center">
+            <button (click)="editQuiz(quiz)" type="button" class="btn btn-outline-success">
+              <i class="fa fa-wrench" aria-hidden="true"></i>
+            </button>
+          </td>
+          <td class="text-center">
+            <button type="button" class="btn btn-outline-success">
+              <i class="fa fa-history" aria-hidden="true"></i>
+            </button>
+          </td>
+          <td> <a [routerLink]="[ '/admin/cau-hoi', quiz.id ]" class="btn btn-outline-primary">Xem câu hỏi </a> </td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </table>
+
+</div>
+<div *ngIf="flagModal" class="modal-custom">
+  <div class="content my-4">
+    <form class="form-horizontal">
+      <div class="form-group">
+        <input type="text" class="form-control">
+      </div>
+    </form>
+  </div>
+  <button (click)="flagModal = false" class="btn btn-danger button-c">Exit</button>
+  <button class="btn btn-outline-primary button-s">Save</button>
+</div>
+<nav class="" aria-label="...">
+  <ul class="m-auto  pagination pagination-sm">
+    <li role="button" *ngFor="let link of links" (click)="perPage(link.url)"
+      class="page-item {{ link.active ? 'active' : '' }}" aria-current="page">
+      <span [innerHTML]="link.label" class="page-link"></span>
+    </li>
+  </ul>
+</nav>

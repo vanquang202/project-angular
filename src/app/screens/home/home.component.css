@@ -1,0 +1,41 @@
+.item-qz{
+  transition:all .2s;
+  text-decoration: none;
+  -webkit-transition:all .2s;
+  -moz-transition:all .2s;
+  -ms-transition:all .2s;
+  -o-transition:all .2s;
+  color:rgb(255, 255, 255);
+
+}
+.card-item-qz{
+ background: rgb(255,255,255);
+background: linear-gradient(94deg, rgba(255,255,255,1) 0%, rgba(13,110,253,.5) 30%, rgba(91,157,254,.5) 70%, rgba(255,255,255,1) 100%);
+  border-radius: 20px !important;
+  -webkit-border-radius: 20px !important;
+  -moz-border-radius: 20px !important;
+  -ms-border-radius: 20px !important;
+  -o-border-radius: 20px !important;
+  padding: 10px 20px
+}
+.pagination-qz{
+  position: absolute;
+  bottom: 0;
+}
+.container-custome{
+  position: absolute;
+  height: 80%;
+  overflow: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50% , -50%) !important;
+  -webkit-transform: translate(-50% , -50%) !important;
+  -moz-transform: translate(-50% , -50%) !important;
+  -ms-transform: translate(-50% , -50%) !important;
+  -o-transform: translate(-50% , -50%) !important;
+}
+.sr-data{
+  position: absolute;
+  top:10px;
+  right:10px;
+}

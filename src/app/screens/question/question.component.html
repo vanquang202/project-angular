@@ -1,0 +1,191 @@
+<div>
+  <button (click)="back()" class="btn btn-primary"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></button>
+
+  <ng-container *ngIf="flag_form">
+    <div class="m-1">
+      <form [formGroup]="form_question" class="form">
+        <div class="form-control ">
+          <label>Câu hỏi </label>
+          <input formControlName="name" type="text" class="form-control">
+          <ng-container *ngIf="form_question.controls['name'].errors &&
+                                      (form_question.controls['name']).touched ||
+                                      form_question.controls['name'].dirty">
+            <div>
+              <p class="text-danger" *ngIf="form_question.controls['name'].hasError('required')">Tên không để trống </p>
+            </div>
+          </ng-container>
+        </div>
+
+        <div class="form-control">
+          <p>Câu trả lời </p>
+          <div *ngFor="let ix of dataAnswer, let i = index" class=" input-group">
+            <div class="input-group-text">
+              <label><i class="fa fa-paint-brush" aria-hidden="true"></i> Câu {{ i + 1 }} </label>
+              <input class="form-check-input mt-0" type="radio" [value]="ix"
+                aria-label="Radio button for following text input" formControlName="is_correct" name="is_correct">
+            </div>
+            <input type="text" class="form-control" aria-label="Text input with radio button"
+              formControlName="content_{{ i+1 }}">
+            <ng-container *ngIf="form_question.controls['content_'+(i + 1)].errors &&
+                                                  (form_question.controls['content_'+(i + 1)]).touched ||
+                                                  form_question.controls['content_'+(i + 1)].dirty">
+              <div>
+                <p class="text-danger" *ngIf="form_question.controls['content_'+(i + 1)].hasError('required')">Tên không
+                  để
+                  trống </p>
+              </div>
+            </ng-container>
+          </div>
+
+
+        </div>
+
+        <div class="form-group mt-1">
+          <ng-container *ngIf="data_update; else elseTemplateForm">
+            <button (click)="editQuestion()" [disabled]="!form_question.valid" class="btn btn-primary">Sửa
+              câu hỏi </button>
+          </ng-container>
+          <ng-template #elseTemplateForm>
+            <button (click)="storeQuestion()" [disabled]="!form_question.valid" class="btn btn-primary">Thêm
+              câu hỏi </button>
+          </ng-template>
+
+
+          <button (click)="flag_form = false" class="mx-1 btn btn-outline-primary"> <i class="fa fa-chevron-circle-left"
+              aria-hidden="true"></i></button>
+        </div>
+      </form>
+    </div>
+  </ng-container>
+
+
+  <table class="table  table-hover table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Câu hỏi </th>
+        <th scope="col">Đáp án 1</th>
+        <th scope="col">Đáp án 2</th>
+        <th scope="col">Đáp án 3</th>
+        <th scope="col">Đáp án 4</th>
+        <th width="20" colspan="2" class="text-center"> <button (click)="flag_form = true " type="button"
+            class="btn btn-outline-primary"><i class="fa fa-plus-square" aria-hidden="true"></i> </button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="questions.length == 0; else elseTemplate">
+
+        <tr>
+          <th scope="row"> No item <i class="fa fa-exclamation-circle" aria-hidden="true"></i></th>
+          <td> No item <i class="fa fa-exclamation-circle" aria-hidden="true"></i></td>
+          <td> No item <i class="fa fa-exclamation-circle" aria-hidden="true"></i></td>
+          <td> No item <i class="fa fa-exclamation-circle" aria-hidden="true"></i></td>
+          <td> No item <i class="fa fa-exclamation-circle" aria-hidden="true"></i></td>
+          <td> No item <i class="fa fa-exclamation-circle" aria-hidden="true"></i></td>
+          <td class="text-center">
+            <button type="button" class="btn btn-outline-danger ">
+              <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+            </button>
+          </td>
+          <td class="text-center">
+            <button type="button" class="btn btn-outline-success">
+              <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+            </button>
+          </td>
+          <td> <a class="btn btn-outline-primary">No item </a> </td>
+        </tr>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <tr *ngFor="let question of questions , let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ question.name }}</td>
+          <td *ngFor="let answer of question.answers"> <span class="text-danger" *ngIf="answer.is_correct == 0"><i
+                class="fa fa-check-circle-o" aria-hidden="true"></i> </span> {{
+            answer.content }}
+          </td>
+          <td class="text-center"><button (click)="deleteQuestion(question.id)" type="button"
+              class="btn btn-outline-danger "><i class="fa fa-trash" aria-hidden="true"></i>
+            </button></td>
+          <td class="text-center"><button (click)="updateQuestion(question)" type="button"
+              class="btn btn-outline-success"><i class="fa fa-wrench" aria-hidden="true"></i>
+            </button></td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </table>
+
+
+</div>
+<!--
+  <div class=" input-group">
+            <div class="input-group-text">
+              <label><i class="fa fa-paint-brush" aria-hidden="true"></i> Câu 1 </label>
+              <input class="form-check-input mt-0" type="radio" [value]="1"
+                aria-label="Radio button for following text input" formControlName="is_correct" name="is_correct">
+            </div>
+            <input type="text" class="form-control" aria-label="Text input with radio button"
+              formControlName="content_1">
+            <ng-container *ngIf="form_question.controls['content_1'].errors &&
+                                      (form_question.controls['content_1']).touched ||
+                                      form_question.controls['content_1'].dirty">
+              <div>
+                <p class="text-danger" *ngIf="form_question.controls['content_1'].hasError('required')">Tên không để
+                  trống </p>
+              </div>
+            </ng-container>
+          </div>
+
+          <div class="input-group">
+            <div class="input-group-text">
+              <label><i class="fa fa-paint-brush" aria-hidden="true"></i> Câu 2 </label>
+              <input class="form-check-input mt-0" type="radio" [value]="2"
+                aria-label="Radio button for following text input" formControlName="is_correct" name="is_correct">
+            </div>
+            <input type="text" class="form-control" aria-label="Text input with radio button"
+              formControlName="content_2">
+            <ng-container *ngIf="form_question.controls['content_2'].errors &&
+                                      (form_question.controls['content_2']).touched ||
+                                      form_question.controls['content_2'].dirty">
+              <div>
+                <p class="text-danger" *ngIf="form_question.controls['content_2'].hasError('required')">Tên không để
+                  trống </p>
+              </div>
+            </ng-container>
+          </div>
+          <div class="input-group">
+            <div class="input-group-text">
+              <label><i class="fa fa-paint-brush" aria-hidden="true"></i> Câu 3 </label>
+              <input class="form-check-input mt-0" type="radio" [value]="3"
+                aria-label="Radio button for following text input" formControlName="is_correct" name="is_correct">
+            </div>
+            <input type="text" class="form-control" aria-label="Text input with radio button"
+              formControlName="content_3">
+            <ng-container *ngIf="form_question.controls['content_3'].errors &&
+                                      (form_question.controls['content_3']).touched ||
+                                      form_question.controls['content_3'].dirty">
+              <div>
+                <p class="text-danger" *ngIf="form_question.controls['content_3'].hasError('required')">Tên không để
+                  trống </p>
+              </div>
+            </ng-container>
+          </div>
+          <div class="input-group">
+            <div class="input-group-text">
+              <label><i class="fa fa-paint-brush" aria-hidden="true"></i> Câu 4 </label>
+              <input class="form-check-input mt-0" type="radio" [value]="4"
+                aria-label="Radio button for following text input" formControlName="is_correct" name="is_correct">
+            </div>
+            <input type="text" class="form-control" aria-label="Text input with radio button"
+              formControlName="content_4">
+            <ng-container *ngIf="form_question.controls['content_4'].errors &&
+                                      (form_question.controls['content_4']).touched ||
+                                      form_question.controls['content_4'].dirty">
+              <div>
+                <p class="text-danger" *ngIf="form_question.controls['content_4'].hasError('required')">Tên không để
+                  trống </p>
+              </div>
+            </ng-container>
+          </div>
+
+ -->

@@ -1,0 +1,42 @@
+<div class="container container-custome m-auto row mt-4">
+
+  <a *ngFor="let subject of subjects; let i=index" [routerLink]="['/quiz',subject.id]" class="item-qz col-sm-3 my-2">
+    <div class="">
+      <div class="card card-item-qz" style="width: 18rem;">
+        <div class="card-body p-2 text-center">
+          <div>
+            <h2>{{ subject.name }} <i class="fa fa-calendar-check-o" aria-hidden="true"></i></h2>
+            <p>Có <b>{{ subject.quizs_count }}</b> bài test <i class="fa fa-clipboard" aria-hidden="true"></i></p>
+            <small> Giảng viên : <b>{{ subject.user.name }} <i class="fa fa-graduation-cap" aria-hidden="true"></i></b>
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>
+
+  <div class=" col-sm-12  ">
+    <hr>
+    <br>
+    <nav class="" aria-label="...">
+      <ul class="m-auto  pagination pagination-sm">
+        <li role="button" *ngFor="let link of links" (click)="perPage(link.url)"
+          class="page-item {{ link.active ? 'active' : '' }}" aria-current="page">
+          <span style="    background: none; color: white" [innerHTML]="link.label" class="page-link"></span>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+</div>
+<div class="sr-data">
+  <input (input)="searchData($event.target)" type="text" style="background: none;    border-radius: 20px;"
+    class="form-control" placeholder="Tìm kiếm ">
+</div>
+
+<div *ngIf="loading" class="lds-ring">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>

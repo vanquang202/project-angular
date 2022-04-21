@@ -1,0 +1,63 @@
+.quiz-xx{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 95%;
+  transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
+  -moz-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  -o-transform: translate(-50%,-50%);
+}
+.item-qz{
+  text-decoration: none;
+
+}
+.item-cad{
+  word-break: break-all;
+ transition:all .5s;
+  border-radius: 50px !important;
+  -webkit-border-radius: 50px !important;
+  -moz-border-radius: 50px !important;
+  -ms-border-radius: 50px !important;
+  -o-border-radius: 50px !important;
+}
+.card-z{
+
+  background:  white;
+  border-radius: 50px !important;
+  -webkit-border-radius: 50px !important;
+  -moz-border-radius: 50px !important;
+  -ms-border-radius: 50px !important;
+  -o-border-radius: 50px !important;
+  -webkit-transition:all .5s;
+  -moz-transition:all .5s;
+  -ms-transition:all .5s;
+  -o-transition:all .5s;
+}
+.btn-prev{
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+.btn-next {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+.active{
+  background:#0d6efd;
+  color: white
+}
+.btn-ss{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+h2{
+
+  margin : 0;
+}
+.hh2{
+  font-size: 31px;
+}

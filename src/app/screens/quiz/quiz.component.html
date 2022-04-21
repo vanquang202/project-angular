@@ -1,0 +1,48 @@
+<div class="container    ">
+
+  <ng-container *ngIf="quizs.length > 0; else elseTemplate">
+    <div class="container container-custome row  m-auto">
+
+      <a role="button" *ngFor="let quiz of quizs; let i=index" [routerLink]="['/take-quiz',quiz.id,quiz.slug_name]"
+        class="  item-qz col-sm-3 my-2">
+        <div class="p-1">
+          <div class="card card-item-qz" style="width: 18rem;">
+            <div class="card-body p-2 text-center">
+              <div>
+                <h2>{{ quiz.name }} <i class="fa fa-calendar-check-o" aria-hidden="true"></i></h2>
+                <p>Thời gian làm bài <b>{{ quiz.duration_minutes }}</b> phút <i class="fa fa-clock-o"
+                    aria-hidden="true"></i></p>
+                <p>Thời gian đóng quiz <b>{{ quiz.end_time | date : "dd/MM/yyyy HH:MM:SS" }}</b> <i
+                    class="fa fa-clock-o" aria-hidden="true"></i></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <div *ngIf="loading" class="lds-ring">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+
+    <button [routerLink]="['/']" role="button" class="btn-bottom text-light btn btn-primary ">Quay lại 🔙
+    </button>
+  </ng-container>
+  <ng-template #elseTemplate>
+    <div style="text-align: center;">
+
+
+      <img class="m-auto  " style="width:200px"
+        src="https://thumbs.dreamstime.com/b/quiz-icon-simple-vector-170164971.jpg" alt="">
+      <br><br>
+      <h2 class="text-center w-full text-bold">Không có quiz !
+      </h2>
+      <a [routerLink]="['/']" role="button" class="btn btn-primary ">
+        Quay lại
+      </a>
+    </div>
+  </ng-template>
+
+</div>

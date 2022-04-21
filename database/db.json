@@ -1,0 +1,27 @@
+{
+  "heroes": [
+    {
+      "id": 1,
+      "name": "Songoku",
+      "avatar": "http://",
+      "attack": 100,
+      "gender": 1
+    }
+  ],
+  "enemies": [
+    {
+      "id": 1,
+      "name": "Quang",
+      "avatar": "https://deviet.vn/wp-content/uploads/2019/04/vuong-quoc-anh.jpg",
+      "heathl": "3020000000",
+      "amour": "200000000"
+    },
+    {
+      "id": 3,
+      "name": "admin",
+      "avatar": "https://deviet.vn/wp-content/uploads/2019/04/vuong-quoc-anh.jpg",
+      "heathl": "2000000111666",
+      "amour": "200000000"
+    }
+  ]
+}

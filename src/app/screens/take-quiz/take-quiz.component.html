@@ -1,0 +1,33 @@
+<ng-container *ngIf="questions.length <= 0; else elseTemplate">
+
+</ng-container>
+<ng-template #elseTemplate>
+  <div class="quiz-xx">
+    <h1 class="text-center">Thời gian còn lại : {{ duration_minutes }} phút </h1>
+    <div class="text-center">
+      <h2 class="hh2"> {{ page + 1 }} / {{ questions.length }} : <b> {{ questions[page].name }}</b> <img
+          *ngIf="questions[page].img" style="max-width:200px" src="{{questions[page].img}}" alt=""></h2>
+    </div>
+    <div class="container m-auto row mt-4">
+
+      <a *ngFor="let answer of questions[page].answers" (click)="clickAnswer(questions[page].id , answer.id)"
+        role="button" class=" item-qz col-sm-3 my-2">
+        <div class="p-1">
+          <div class=" card-z card-item-qz">
+            <div class="{{ checkedAnswer(answer.id) ? 'active' : ''}} item-cad  card-body p-4 text-center">
+              <div>
+                <h2>{{ answer.content }}
+                  <img *ngIf="answer.img" style="width:100%" src="{{questions[page].img}}" alt="">
+                </h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <button (click)="finishTest()" class="btn-ss btn btn-primary">Nộp bài</button>
+  <button *ngIf="!(page == 0)" (click)="perPage()" class="btn-prev btn btn-primary">⬅️ Câu trước </button>
+  <button *ngIf="!(questions.length == page+1)" (click)="nextPage()" class="btn-next btn btn-primary">Câu sau
+    ➡️</button>
+</ng-template>

@@ -1,0 +1,32 @@
+<div class="modal-custom">
+  <div class="content my-4">
+    <div class="title">
+      <h1>Lịch sử </h1>
+      <small class="small">
+        <i class="fa fa-check-square-o" aria-hidden="true"></i> Đáp án đúng
+      </small>
+      <small class="small">
+        <i class="fa fa-thumbs-up" aria-hidden="true"></i> Đáp án chọn
+      </small>
+    </div>
+    <div class="body">
+      <div *ngFor="let student_quiz_detail of student_quiz_details" class="my-2">
+        <h1>{{ student_quiz_detail.answers.questions.name }}</h1>
+        <ul>
+          <li *ngFor="let answer of student_quiz_detail.answers.questions.answers">
+            <span class="text-primary" *ngIf="student_quiz_detail.answer_id == answer.id"><i class="fa fa-thumbs-up"
+                aria-hidden="true"></i>
+            </span>
+
+            {{ answer.content }}
+            <span class="text-success" *ngIf="answer.is_correct == 0">
+              <i class="fa fa-check-square-o" aria-hidden="true"></i>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <button (click)="closeModal()" class="btn btn-danger button-c"><i class="fa fa-sign-out"
+      aria-hidden="true"></i></button>
+</div>

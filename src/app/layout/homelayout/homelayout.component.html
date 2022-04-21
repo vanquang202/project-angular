@@ -1,0 +1,52 @@
+<div [style]="'background-size:100% ;background-image:url('+urlImage+')'" class="c-res">
+
+
+  <a class="btn-fixed btn btn-primary rounded-xxl" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
+    aria-controls="offcanvasExample">
+    <img width="30" src="https://thumbs.dreamstime.com/b/quiz-icon-simple-vector-170164971.jpg" alt=""> {{ user.name }}
+  </a>
+
+  <div style="z-index:20000 !important" class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+    aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+
+      <h5 style="color : black !important" class="offcanvas-title" id="offcanvasExampleLabel">
+        <img width="30" src="https://thumbs.dreamstime.com/b/quiz-icon-simple-vector-170164971.jpg" alt="">
+
+        Xin chào
+        <b> <i class="fa fa-user-circle-o" aria-hidden="true"></i> {{ user.name }}</b>
+        <button (click)="logout()" class="btn  text-warning"> Đăng xuất <i class="fa fa-sign-out"
+            aria-hidden="true"></i>
+        </button>
+      </h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div>
+        <div class="list-group">
+          <a [routerLink]="['/']" routerLinkActive="router-link-active" type="button"
+            class="list-group-item list-group-item-action " aria-current="true">
+            <i class="fa fa-home" aria-hidden="true"></i> Trang chính
+          </a>
+          <a [routerLink]="['/lich-su']" routerLinkActive="router-link-active" type="button"
+            class="list-group-item list-group-item-action " aria-current="true">
+            <i class="fa fa-history" aria-hidden="true"></i> Lịch sử
+          </a>
+        </div>
+      </div>
+      <br>
+      <hr>
+      <h3 class="title row">
+        <div *ngFor="let img of listBg" (click)="onPage(img)" role="button" style="overflow: hidden; "
+          class="col-sm-6 p-2" [class]=" (img == urlImage) ? 'active-i' : '' ">
+          <div class="card ">
+            <img height="200" width="100%" src="{{ img }}" class="card-img-top" alt="...">
+          </div>
+        </div>
+      </h3>
+    </div>
+  </div>
+
+  <router-outlet></router-outlet>
+
+</div>

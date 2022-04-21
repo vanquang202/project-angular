@@ -1,0 +1,77 @@
+<div>
+  <div *ngIf="flag_form">
+    <form [formGroup]="form_subject" class="form">
+      <div class="form-group">
+        <label class="label">Tên môn học </label>
+        <input type="text" formControlName="name" minlength="4" class="form-control" name="name">
+        <ng-container *ngIf="form_subject.controls['name'].errors &&
+                (form_subject.controls['name']).touched ||
+                form_subject.controls['name'].dirty">
+          <div>
+            <p class="text-danger" *ngIf="form_subject.controls['name'].hasError('required')">Tên không để trống </p>
+            <p class="text-danger" *ngIf="form_subject.controls['name'].hasError('minlength')">Tên kí tự lớn hơn 4 kí tự
+            </p>
+          </div>
+        </ng-container>
+      </div>
+      <div class="form-group mt-1">
+        <ng-container *ngIf="data_update; else elseTemplate">
+          <button (click)="updateSubject()" [disabled]="form_subject.controls['name'].errors"
+            class="btn btn-primary">Sửa
+            môn học </button>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <button (click)="storeSubject()" [disabled]="form_subject.controls['name'].errors"
+            class="btn btn-primary">Thêm
+            môn học </button>
+        </ng-template>
+
+
+        <button (click)="flag_form = false" class="mx-1 btn btn-outline-primary"> <i class="fa fa-chevron-circle-left"
+            aria-hidden="true"></i></button>
+      </div>
+    </form>
+  </div>
+  <table class="table  table-hover table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th style="width: 80%" scope="col">Môn học </th>
+        <th class="text-center" colspan="2">
+          <button (click)="flag_form = true" type="button" class="btn btn-outline-primary"><i class="fa fa-plus-square"
+              aria-hidden="true"></i>
+          </button>
+        </th>
+        <th colspan="2"> Quiz</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let subject of subjects , let i = index">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ subject.name }}</td>
+        <ng-container *ngIf="subject.quizs_count == 0; else elseTemplate">
+          <td class="text-center"><button (click)="deleteSubject(subject.id)" type="button"
+              class="btn btn-outline-danger "><i class="fa fa-trash" aria-hidden="true"></i>
+            </button></td>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <td class="text-center"><button type="button" class="btn btn-danger "><i class="fa fa-exclamation-circle"
+                aria-hidden="true"></i>
+            </button></td>
+        </ng-template>
+        <td class="text-center"><button (click)="editSubject(subject)" type="button" class="btn btn-outline-success"><i
+              class="fa fa-wrench" aria-hidden="true"></i>
+          </button></td>
+        <td> <a class="btn btn-outline-primary" [routerLink]="['/admin/quiz',subject.id]">Xem quiz </a> </td>
+      </tr>
+    </tbody>
+  </table>
+  <nav class="" aria-label="...">
+    <ul class="m-auto  pagination pagination-sm">
+      <li role="button" *ngFor="let link of links" (click)="perPage(link.url)"
+        class="page-item {{ link.active ? 'active' : '' }}" aria-current="page">
+        <span [innerHTML]="link.label" class="page-link"></span>
+      </li>
+    </ul>
+  </nav>
+</div>

@@ -1,0 +1,30 @@
+.c-res{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  overflow-y: scroll;
+  color: white;
+}
+.btn-fixed{
+  position: absolute;
+  top:10px;
+  left:10px;
+  box-shadow: 2px 2px black , 3px 3px 3px blue;
+  z-index:10;
+}
+.router-link-active{
+  background: blue;
+  color: white;
+}
+.right_st{
+  position: absolute;
+  top:10px;
+  right:10px;
+
+}
+
+.active-i{
+  border: 1px solid black;
+}

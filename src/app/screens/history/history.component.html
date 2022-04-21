@@ -1,0 +1,38 @@
+<div class="container-custome">
+
+  <table width="100%" class="w-full table table-cus table-striped table-hover">
+    <thead>
+      <tr class="text-center">
+        <th scope="col">#</th>
+        <th scope="col">Môn học </th>
+        <th scope="col">Quiz </th>
+        <th scope="col">Điểm </th>
+        <th scope="col">Thời gian làm bài </th>
+        <th scope="col">Thời gian nộp </th>
+        <th scope="col">Thao tác </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="text-center" *ngFor="let student_quiz of student_quizs ; let i = index">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ student_quiz.quizs.subject.name }}</td>
+        <td>{{ student_quiz.quizs.name }}</td>
+        <td>{{ student_quiz.score }}</td>
+        <td>{{ student_quiz.start_time | date : 'dd/mm/yyyy h:MM:ss' }}</td>
+        <td>{{ student_quiz.end_time | date : 'dd/mm/yyyy h:MM:ss' }}</td>
+        <td> <button (click)="viewHistory(student_quiz.student_quiz_detail)" class="btn btn-outline-primary"><i
+              class="fa fa-eye" aria-hidden="true"></i></button> </td>
+      </tr>
+  </table>
+  <nav class="" aria-label="...">
+    <ul class="m-auto  pagination pagination-sm">
+      <li role="button" *ngFor="let link of links" (click)="perPage(link.url)"
+        class="page-item {{ link.active ? 'active' : '' }}" aria-current="page">
+        <span style="    background: none; color: white" [innerHTML]="link.label" class="page-link"></span>
+      </li>
+    </ul>
+  </nav>
+</div>
+<div *ngIf="modalFlag == true">
+  <app-modal [student_quiz_details]="student_quiz_details" (close)="modalFlag = false"></app-modal>
+</div>
